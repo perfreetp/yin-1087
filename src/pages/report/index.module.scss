@@ -1,0 +1,358 @@
+@use '@/styles/variables.scss' as *;
+
+.pageContainer {
+  min-height: 100vh;
+  background: $color-bg-page;
+  padding-bottom: 60rpx;
+}
+
+.empty {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl;
+}
+
+.emptyIcon {
+  font-size: 120rpx;
+  margin-bottom: $spacing-lg;
+}
+
+.emptyText {
+  font-size: 32rpx;
+  color: $color-text-primary;
+  margin-bottom: $spacing-sm;
+}
+
+.emptyTip {
+  font-size: 26rpx;
+  color: $color-text-secondary;
+}
+
+.header {
+  text-align: center;
+  padding: $spacing-xl $spacing-lg;
+  background: linear-gradient(180deg, rgba($color-primary, 0.1) 0%, $color-bg-page 100%);
+}
+
+.statusIcon {
+  font-size: 120rpx;
+  display: block;
+  margin-bottom: $spacing-md;
+}
+
+.statusTitle {
+  font-size: 40rpx;
+  font-weight: 600;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: $spacing-xs;
+}
+
+.statusSub {
+  font-size: 26rpx;
+  color: $color-text-secondary;
+}
+
+.summaryCard {
+  margin: 0 $spacing-lg $spacing-md;
+  background: #fff;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+}
+
+.summaryRow {
+  display: flex;
+  margin-bottom: $spacing-lg;
+  padding-bottom: $spacing-lg;
+  border-bottom: 1rpx solid $color-border-light;
+}
+
+.summaryItem {
+  flex: 1;
+  text-align: center;
+}
+
+.summaryValue {
+  font-size: 48rpx;
+  font-weight: 600;
+  color: $color-success;
+  display: block;
+  margin-bottom: $spacing-xs;
+
+  &.failed {
+    color: $color-error;
+  }
+}
+
+.summaryLabel {
+  font-size: 26rpx;
+  color: $color-text-secondary;
+}
+
+.sizeRow {
+  display: flex;
+}
+
+.sizeItem {
+  flex: 1;
+  text-align: center;
+}
+
+.sizeValue {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.sizeLabel {
+  font-size: 24rpx;
+  color: $color-text-secondary;
+}
+
+.section {
+  margin: $spacing-md $spacing-lg;
+}
+
+.sectionTitle {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: $color-text-primary;
+  margin-bottom: $spacing-md;
+  display: block;
+}
+
+.categoryCard {
+  background: #fff;
+  border-radius: $radius-md;
+  margin-bottom: $spacing-sm;
+  overflow: hidden;
+}
+
+.categoryHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-md $spacing-lg;
+}
+
+.categoryLeft {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.categoryIcon {
+  font-size: 48rpx;
+  margin-right: $spacing-md;
+}
+
+.categoryInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.categoryName {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.categoryMeta {
+  font-size: 24rpx;
+  color: $color-text-secondary;
+}
+
+.categoryArrow {
+  font-size: 24rpx;
+  color: $color-text-tertiary;
+  margin-left: $spacing-md;
+}
+
+.categoryDetail {
+  padding: 0 $spacing-lg $spacing-md;
+  background: $color-bg-page;
+  border-top: 1rpx solid $color-border-light;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  padding: $spacing-sm 0;
+}
+
+.detailLabel {
+  font-size: 26rpx;
+  color: $color-text-secondary;
+}
+
+.detailValue {
+  font-size: 26rpx;
+  color: $color-text-primary;
+
+  &.failed {
+    color: $color-error;
+  }
+}
+
+.missedList {
+  background: #fff;
+  border-radius: $radius-md;
+  overflow: hidden;
+}
+
+.missedItem {
+  display: flex;
+  align-items: center;
+  padding: $spacing-md $spacing-lg;
+  border-bottom: 1rpx solid $color-border-light;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.missedIcon {
+  font-size: 36rpx;
+  margin-right: $spacing-md;
+}
+
+.missedInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.missedName {
+  font-size: 28rpx;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.missedCategory {
+  font-size: 24rpx;
+  color: $color-text-secondary;
+}
+
+.missedArrow {
+  font-size: 32rpx;
+  color: $color-text-tertiary;
+  margin-left: $spacing-md;
+}
+
+.devices {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: $spacing-lg $spacing-lg;
+  padding: $spacing-lg;
+  background: #fff;
+  border-radius: $radius-md;
+}
+
+.deviceItem {
+  text-align: center;
+  flex: 1;
+}
+
+.deviceIcon {
+  font-size: 64rpx;
+  display: block;
+  margin-bottom: $spacing-sm;
+}
+
+.deviceName {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.deviceLabel {
+  font-size: 22rpx;
+  color: $color-text-secondary;
+}
+
+.deviceArrow {
+  font-size: 36rpx;
+  color: $color-primary;
+  margin: 0 $spacing-md;
+}
+
+.actions {
+  display: flex;
+  gap: $spacing-md;
+  padding: 0 $spacing-lg $spacing-xl;
+  margin-top: $spacing-lg;
+}
+
+.modalMask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: $spacing-xl;
+}
+
+.modalContent {
+  background: #fff;
+  border-radius: $radius-lg;
+  padding: $spacing-xl;
+  width: 100%;
+  max-width: 600rpx;
+}
+
+.modalTitle {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: $color-text-primary;
+  text-align: center;
+  margin-bottom: $spacing-lg;
+  display: block;
+}
+
+.modalItem {
+  margin-bottom: $spacing-md;
+}
+
+.modalItemLabel {
+  font-size: 26rpx;
+  color: $color-text-secondary;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.modalItemValue {
+  font-size: 28rpx;
+  color: $color-text-primary;
+
+  &.failed {
+    color: $color-error;
+  }
+}
+
+.modalTip {
+  margin-top: $spacing-lg;
+  padding: $spacing-md;
+  background: $color-bg-page;
+  border-radius: $radius-sm;
+}
+
+.modalTipText {
+  font-size: 24rpx;
+  color: $color-text-secondary;
+}

@@ -7,7 +7,10 @@ import {
   FamilyMember,
   TransferItem,
   RemoteProgressView,
-  BackupRecord
+  BackupRecord,
+  MigrationReport,
+  CategoryReport,
+  MissedItem
 } from '@/types';
 import {
   mockDataCategories,
@@ -31,6 +34,8 @@ interface MigrateState {
   remoteProgress: RemoteProgressView | null;
   myHelpCode: string;
   selectedMemberForBackup: FamilyMember | null;
+  migrationReport: MigrationReport | null;
+  migrationReports: MigrationReport[];
 
   setCurrentStep: (step: number) => void;
   toggleCategory: (id: string) => void;
@@ -46,6 +51,7 @@ interface MigrateState {
   resumeTransfer: () => void;
   setConnectionStatus: (connected: boolean) => void;
   updateProgress: (progress: Partial<TransferProgress>) => void;
+  generateReport: () => void;
 
   addFamilyMember: (name: string, relation: string) => void;
   removeFamilyMember: (id: string) => void;
@@ -152,6 +158,8 @@ export const useMigrateStore = create<MigrateState>((set, get) => ({
   remoteProgress: null,
   myHelpCode: '45218793',
   selectedMemberForBackup: null,
+  migrationReport: null,
+  migrationReports: [],
 
   setCurrentStep: (step) => {
     console.log('[MigrateStore] 设置当前步骤:', step);
@@ -298,6 +306,90 @@ export const useMigrateStore = create<MigrateState>((set, get) => ({
     console.log('[MigrateStore] 更新进度:', progress);
     set((state) => ({
       transferProgress: { ...state.transferProgress, ...progress }
+    }));
+  },
+
+  generateReport: () => {
+    const state = get();
+    const { transferItems, categories, transferProgress } = state;
+
+    const completedItems = transferItems.filter(i => i.status === 'completed');
+    const failedItems = transferItems.filter(i => i.status === 'failed');
+    const pendingItems = transferItems.filter(i => i.status === 'pending');
+
+    const successSizeBytes = completedItems.reduce((sum, i) => sum + i.sizeBytes, 0);
+    const failedSizeBytes = failedItems.reduce((sum, i) => sum + i.sizeBytes, 0);
+    const totalSizeBytes = transferItems.reduce((sum, i) => sum + i.sizeBytes, 0);
+
+    const categoryMap = new Map<string, CategoryReport>();
+    categories.forEach(cat => {
+      if (cat.selected) {
+        categoryMap.set(cat.id, {
+          categoryId: cat.id,
+          categoryName: cat.name,
+          icon: cat.icon,
+          successCount: 0,
+          skippedCount: 0,
+          failedCount: 0,
+          successSize: '0 B',
+          failedSize: '0 B',
+          totalSize: cat.size
+        });
+      }
+    });
+
+    transferItems.forEach(item => {
+      const report = categoryMap.get(item.categoryId);
+      if (report) {
+        if (item.status === 'completed') {
+          report.successCount++;
+        } else if (item.status === 'failed') {
+          report.failedCount++;
+        }
+      }
+    });
+
+    const categoryReports = Array.from(categoryMap.values()).map(report => {
+      const catItems = transferItems.filter(i => i.categoryId === report.categoryId);
+      const successBytes = catItems.filter(i => i.status === 'completed').reduce((sum, i) => sum + i.sizeBytes, 0);
+      const failedBytes = catItems.filter(i => i.status === 'failed').reduce((sum, i) => sum + i.sizeBytes, 0);
+      return {
+        ...report,
+        successSize: formatBytes(successBytes),
+        failedSize: formatBytes(failedBytes),
+      };
+    });
+
+    const missedItems: MissedItem[] = failedItems.map(item => ({
+      name: item.name,
+      category: item.category,
+      reason: item.id.includes('photo') ? '文件格式不支持' :
+              item.id.includes('video') ? '文件过大，传输超时' :
+              item.id.includes('contact') ? '数据解析失败' : '未知原因'
+    }));
+
+    const report: MigrationReport = {
+      id: String(Date.now()),
+      date: formatDate(new Date()),
+      overall: transferProgress.overall,
+      totalItems: transferItems.length,
+      successItems: completedItems.length,
+      skippedItems: pendingItems.length,
+      failedItems: failedItems.length,
+      totalSize: formatBytes(totalSizeBytes),
+      successSize: formatBytes(successSizeBytes),
+      failedSize: formatBytes(failedSizeBytes),
+      duration: '约 3 分钟',
+      categories: categoryReports,
+      missedItems,
+      deviceFrom: '旧手机',
+      deviceTo: '新手机'
+    };
+
+    console.log('[MigrateStore] 生成迁移报告:', report);
+    set((state) => ({
+      migrationReport: report,
+      migrationReports: [report, ...state.migrationReports].slice(0, 10)
     }));
   },
 

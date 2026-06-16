@@ -14,6 +14,7 @@ const ProgressPage: React.FC = () => {
     pauseTransfer,
     resumeTransfer,
     updateProgress,
+    generateReport,
   } = useMigrateStore();
 
   const isCompleted = transferProgress.status === 'completed';
@@ -25,25 +26,15 @@ const ProgressPage: React.FC = () => {
     if (transferItems.length === 0) {
       return [];
     }
-    const priorityOrder = { high: 0, normal: 1, low: 2 };
-    return [...transferItems]
-      .sort((a, b) => {
-        if (priorityOrder[a.priority] !== priorityOrder[b.priority]) {
-          return priorityOrder[a.priority] - priorityOrder[b.priority];
-        }
-        const statusOrder = { completed: 0, transferring: 1, pending: 2, failed: 3 };
-        if (statusOrder[a.status] !== statusOrder[b.status]) {
-          return statusOrder[a.status] - statusOrder[b.status];
-        }
-        return parseInt(a.id) - parseInt(b.id);
-      })
-      .slice(0, 30);
+    return transferItems.slice(0, 30);
   }, [transferItems]);
 
   const currentTransferringItem = useMemo(() => {
-    return transferItems.find(i => i.status === 'transferring')
-      || displayItems.find(i => i.status === 'pending');
-  }, [transferItems, displayItems]);
+    const transferring = transferItems.find(i => i.status === 'transferring');
+    if (transferring) return transferring;
+    const pending = transferItems.find(i => i.status === 'pending');
+    return pending || null;
+  }, [transferItems]);
 
   useEffect(() => {
     if (!isTransferring || transferItems.length === 0) return;
@@ -52,16 +43,8 @@ const ProgressPage: React.FC = () => {
       const state = useMigrateStore.getState();
       const { transferProgress, transferItems, updateProgress } = state;
 
-      const priorityOrder = { high: 0, normal: 1, low: 2 };
-      const sortedItems = [...transferItems].sort((a, b) => {
-        if (priorityOrder[a.priority] !== priorityOrder[b.priority]) {
-          return priorityOrder[a.priority] - priorityOrder[b.priority];
-        }
-        return parseInt(a.id) - parseInt(b.id);
-      });
-
-      const pendingItems = sortedItems.filter(i => i.status === 'pending');
-      const transferringItems = sortedItems.filter(i => i.status === 'transferring');
+      const transferringItems = transferItems.filter(i => i.status === 'transferring');
+      const pendingItems = transferItems.filter(i => i.status === 'pending');
 
       if (transferringItems.length === 0 && pendingItems.length > 0) {
         const nextItem = pendingItems[0];
@@ -130,6 +113,9 @@ const ProgressPage: React.FC = () => {
 
         if (overall >= 100) {
           clearInterval(interval);
+          setTimeout(() => {
+            generateReport();
+          }, 100);
           Taro.showToast({ title: '迁移完成！', icon: 'success' });
         }
       }
@@ -277,6 +263,13 @@ const ProgressPage: React.FC = () => {
           <Text className={styles.completedText}>
             共成功迁移 {transferProgress.transferred}/{transferProgress.total} 项资料
           </Text>
+          <Button
+            className="btn-primary"
+            style={{ marginTop: 32, width: 400 }}
+            onClick={() => Taro.navigateTo({ url: '/pages/report/index' })}
+          >
+            查看迁移报告
+          </Button>
         </View>
       )}
 

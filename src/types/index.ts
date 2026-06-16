@@ -97,3 +97,33 @@ export interface RemoteProgressView {
   transferProgress: TransferProgress | null;
   lastUpdated: string;
 }
+
+export interface CategoryReport {
+  categoryId: string;
+  categoryName: string;
+  icon: string;
+  successCount: number;
+  skippedCount: number;
+  failedCount: number;
+  successSize: string;
+  failedSize: string;
+  totalSize: string;
+}
+
+export interface MigrationReport {
+  id: string;
+  date: string;
+  overall: number;
+  totalItems: number;
+  successItems: number;
+  skippedItems: number;
+  failedItems: number;
+  totalSize: string;
+  successSize: string;
+  failedSize: string;
+  duration: string;
+  categories: CategoryReport[];
+  missedItems: MissedItem[];
+  deviceFrom: string;
+  deviceTo: string;
+}

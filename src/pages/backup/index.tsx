@@ -66,6 +66,12 @@ const BackupPage: React.FC = () => {
     Taro.showToast({ title: '分享功能开发中', icon: 'none' });
   };
 
+  const handleCloseAddModal = () => {
+    setNewMemberName('');
+    setNewMemberRelationIndex(0);
+    setShowAddModal(false);
+  };
+
   const handleAddMember = () => {
     setNewMemberName('');
     setNewMemberRelationIndex(0);
@@ -121,12 +127,11 @@ const BackupPage: React.FC = () => {
     clearRemoteProgress();
   };
 
-  const handleViewMemberProgress = (member: FamilyMember) => {
-    if (member.transferProgress) {
-      viewRemoteProgress(member.helpCode);
-    } else {
-      Taro.showToast({ title: '该用户暂无迁移进度', icon: 'none' });
-    }
+  const handleViewMemberDetail = (member: FamilyMember) => {
+    console.log('[BackupPage] 点击家人详情:', member.id, member.name, member.relation);
+    Taro.navigateTo({
+      url: `/pages/family-detail/index?id=${member.id}`
+    });
   };
 
   if (remoteProgress) {
@@ -274,7 +279,7 @@ const BackupPage: React.FC = () => {
                 helpCode: formatHelpCode(member.helpCode)
               }}
               onShowHelpCode={() => handleShowHelpCode(member)}
-              onClick={() => handleViewMemberProgress(member)}
+              onClick={() => handleViewMemberDetail(member)}
             />
             {member.backupRecords.length > 0 && (
               <View className={styles.memberBackups}>
@@ -315,7 +320,7 @@ const BackupPage: React.FC = () => {
       </View>
 
       {showAddModal && (
-        <View className={styles.modalMask} onClick={() => setShowAddModal(false)}>
+        <View className={styles.modalMask} onClick={handleCloseAddModal}>
           <View className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
             <Text className={styles.modalTitle}>添加家庭成员</Text>
 
@@ -360,7 +365,7 @@ const BackupPage: React.FC = () => {
             <View className={styles.modalActions}>
               <Button
                 className={`${styles.modalBtn} ${styles.modalBtnCancel}`}
-                onClick={() => setShowAddModal(false)}
+                onClick={handleCloseAddModal}
               >
                 取消
               </Button>

@@ -4,7 +4,9 @@ export default defineAppConfig({
     'pages/select/index',
     'pages/progress/index',
     'pages/backup/index',
-    'pages/recovery/index'
+    'pages/recovery/index',
+    'pages/family-detail/index',
+    'pages/report/index'
   ],
   window: {
     backgroundTextStyle: 'light',
