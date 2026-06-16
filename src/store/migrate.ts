@@ -332,6 +332,7 @@ export const useMigrateStore = create<MigrateState>((set, get) => ({
           skippedCount: 0,
           failedCount: 0,
           successSize: '0 B',
+          skippedSize: '0 B',
           failedSize: '0 B',
           totalSize: cat.size
         });
@@ -345,6 +346,8 @@ export const useMigrateStore = create<MigrateState>((set, get) => ({
           report.successCount++;
         } else if (item.status === 'failed') {
           report.failedCount++;
+        } else if (item.status === 'pending') {
+          report.skippedCount++;
         }
       }
     });
@@ -352,10 +355,12 @@ export const useMigrateStore = create<MigrateState>((set, get) => ({
     const categoryReports = Array.from(categoryMap.values()).map(report => {
       const catItems = transferItems.filter(i => i.categoryId === report.categoryId);
       const successBytes = catItems.filter(i => i.status === 'completed').reduce((sum, i) => sum + i.sizeBytes, 0);
+      const skippedBytes = catItems.filter(i => i.status === 'pending').reduce((sum, i) => sum + i.sizeBytes, 0);
       const failedBytes = catItems.filter(i => i.status === 'failed').reduce((sum, i) => sum + i.sizeBytes, 0);
       return {
         ...report,
         successSize: formatBytes(successBytes),
+        skippedSize: formatBytes(skippedBytes),
         failedSize: formatBytes(failedBytes),
       };
     });

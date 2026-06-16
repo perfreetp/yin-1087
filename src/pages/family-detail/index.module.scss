@@ -276,6 +276,240 @@
   color: $color-text-secondary;
 }
 
+.remoteViewHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-md $spacing-lg;
+  background: #fff;
+  border-bottom: 1rpx solid $color-border-light;
+}
+
+.backBtn {
+  font-size: 28rpx;
+  color: $color-primary;
+  padding: $spacing-sm 0;
+}
+
+.remoteViewTitle {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: $color-text-primary;
+}
+
+.remoteViewContent {
+  flex: 1;
+  padding: $spacing-lg;
+}
+
+.remoteProgressHeader {
+  text-align: center;
+  padding: $spacing-lg 0 $spacing-xl;
+}
+
+.remoteMemberInfo {
+  margin-top: $spacing-lg;
+}
+
+.remoteMemberName {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: $spacing-sm;
+}
+
+.remoteUpdateTime {
+  font-size: 24rpx;
+  color: $color-text-secondary;
+}
+
+.remoteStats {
+  display: flex;
+  background: #fff;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+}
+
+.remoteStatItem {
+  flex: 1;
+  text-align: center;
+}
+
+.remoteStatValue {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: $color-primary;
+  display: block;
+  margin-bottom: $spacing-xs;
+}
+
+.remoteStatLabel {
+  font-size: 24rpx;
+  color: $color-text-secondary;
+}
+
+.remoteCurrentItem {
+  background: #fff;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+}
+
+.remoteCurrentLabel {
+  font-size: 26rpx;
+  color: $color-text-secondary;
+  display: block;
+  margin-bottom: $spacing-sm;
+}
+
+.remoteCurrentText {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: $color-text-primary;
+}
+
+.remoteProgressInfo {
+  background: #fff;
+  border-radius: $radius-lg;
+  padding: $spacing-md $spacing-lg;
+  margin-bottom: $spacing-md;
+}
+
+.remoteProgressText {
+  font-size: 26rpx;
+  color: $color-text-secondary;
+}
+
+.remoteMissed {
+  background: #fff;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+}
+
+.remoteMissedTitle {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #E6A23C;
+  display: block;
+  margin-bottom: $spacing-md;
+}
+
+.remoteMissedItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-sm 0;
+  border-bottom: 1rpx solid $color-border-light;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.remoteMissedReason {
+  font-size: 24rpx;
+  color: $color-text-secondary;
+}
+
+.remoteNoProgress {
+  background: #fff;
+  border-radius: $radius-lg;
+  padding: $spacing-xl;
+  text-align: center;
+}
+
+.remoteNoProgressIcon {
+  font-size: 100rpx;
+  display: block;
+  margin-bottom: $spacing-md;
+}
+
+.remoteNoProgressText {
+  font-size: 30rpx;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: $spacing-sm;
+}
+
+.remoteNoProgressTip {
+  font-size: 26rpx;
+  color: $color-text-secondary;
+}
+
+.latestBackup {
+  display: flex;
+  align-items: center;
+  padding: $spacing-lg;
+  background: linear-gradient(135deg, rgba($color-primary, 0.08) 0%, rgba($color-primary, 0.03) 100%);
+  border: 2rpx solid rgba($color-primary, 0.2);
+  border-radius: $radius-md;
+}
+
+.latestBackupIcon {
+  font-size: 56rpx;
+  margin-right: $spacing-md;
+}
+
+.latestBackupInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.latestBackupLabel {
+  font-size: 22rpx;
+  color: $color-primary;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.latestBackupDate {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.latestBackupMeta {
+  font-size: 24rpx;
+  color: $color-text-secondary;
+  display: block;
+  margin-bottom: $spacing-sm;
+}
+
+.latestBackupTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.noLatestBackup {
+  display: flex;
+  align-items: center;
+  padding: $spacing-lg;
+  background: $color-bg-page;
+  border-radius: $radius-md;
+}
+
+.noLatestBackupIcon {
+  font-size: 56rpx;
+  margin-right: $spacing-md;
+}
+
+.noLatestBackupText {
+  font-size: 28rpx;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.noLatestBackupTip {
+  font-size: 24rpx;
+  color: $color-text-secondary;
+}
+
 .dangerSection {
   margin: $spacing-xl $spacing-lg 0;
 }

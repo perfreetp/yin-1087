@@ -111,7 +111,7 @@ const ReportPage: React.FC = () => {
                 <View className={styles.categoryInfo}>
                   <Text className={styles.categoryName}>{cat.categoryName}</Text>
                   <Text className={styles.categoryMeta}>
-                    {cat.successCount} 成功 · {cat.failedCount} 失败 · {cat.totalSize}
+                    {cat.successCount} 成功 · {cat.skippedCount} 跳过 · {cat.failedCount} 失败 · {cat.totalSize}
                   </Text>
                 </View>
               </View>
@@ -123,11 +123,21 @@ const ReportPage: React.FC = () => {
               <View className={styles.categoryDetail}>
                 <View className={styles.detailRow}>
                   <Text className={styles.detailLabel}>成功传输</Text>
-                  <Text className={styles.detailValue}>{cat.successSize}</Text>
+                  <Text className={`${styles.detailValue} ${styles.success}`}>
+                    {cat.successCount} 项 · {cat.successSize}
+                  </Text>
                 </View>
                 <View className={styles.detailRow}>
-                  <Text className={styles.detailLabel}>失败数量</Text>
-                  <Text className={`${styles.detailValue} ${styles.failed}`}>{cat.failedCount} 项</Text>
+                  <Text className={styles.detailLabel}>跳过</Text>
+                  <Text className={`${styles.detailValue} ${styles.skipped}`}>
+                    {cat.skippedCount} 项 · {cat.skippedSize}
+                  </Text>
+                </View>
+                <View className={styles.detailRow}>
+                  <Text className={styles.detailLabel}>失败</Text>
+                  <Text className={`${styles.detailValue} ${styles.failed}`}>
+                    {cat.failedCount} 项 · {cat.failedSize}
+                  </Text>
                 </View>
               </View>
             )}

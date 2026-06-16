@@ -106,6 +106,7 @@ export interface CategoryReport {
   skippedCount: number;
   failedCount: number;
   successSize: string;
+  skippedSize: string;
   failedSize: string;
   totalSize: string;
 }
