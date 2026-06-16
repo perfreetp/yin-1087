@@ -1,0 +1,122 @@
+@use '@/styles/variables.scss' as *;
+
+.card {
+  display: flex;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+}
+
+.thumbnailWrapper {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: $radius-md;
+  overflow: hidden;
+  margin-right: $spacing-lg;
+  flex-shrink: 0;
+  background: $color-bg-page;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 100%;
+}
+
+.iconPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba($color-primary, 0.1) 0%, rgba($color-primary-light, 0.1) 100%);
+}
+
+.categoryIcon {
+  font-size: 56rpx;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8rpx;
+}
+
+.name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: $color-text-primary;
+  @include text-ellipsis;
+  flex: 1;
+  margin-right: $spacing-sm;
+}
+
+.deleteTime {
+  font-size: 26rpx;
+  color: $color-text-secondary;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.expireTime {
+  font-size: 24rpx;
+  color: $color-warning;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.size {
+  font-size: 24rpx;
+  color: $color-text-tertiary;
+  display: block;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  margin-left: $spacing-md;
+  flex-shrink: 0;
+  justify-content: center;
+  gap: $spacing-sm;
+}
+
+.actionBtn {
+  @include button-reset;
+  height: 60rpx;
+  min-width: 100rpx;
+  padding: 0 $spacing-md;
+  font-size: 26rpx;
+  font-weight: 600;
+  border-radius: $radius-button;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.recoverBtn {
+  background: $color-primary;
+}
+
+.recoverBtnText {
+  color: $color-text-white;
+}
+
+.deleteBtn {
+  background: rgba($color-error, 0.1);
+}
+
+.deleteBtnText {
+  color: $color-error;
+}

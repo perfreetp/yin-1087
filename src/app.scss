@@ -1,0 +1,107 @@
+@use '@/styles/compat.scss';
+@use '@/styles/variables.scss' as *;
+
+page {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', sans-serif;
+  font-size: 30rpx;
+  line-height: 1.6;
+  color: $color-text-primary;
+  background-color: $color-bg-page;
+}
+
+.page-container {
+  min-height: 100vh;
+  padding: 0 $page-padding;
+  padding-bottom: 160rpx;
+  box-sizing: border-box;
+}
+
+.section-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: $color-text-primary;
+  margin-bottom: $spacing-md;
+}
+
+.section-subtitle {
+  font-size: 28rpx;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-lg;
+}
+
+.card {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-md;
+}
+
+.btn-primary {
+  @include button-reset;
+  height: $button-height-lg;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  color: $color-text-white;
+  font-size: 34rpx;
+  font-weight: 600;
+  border-radius: $radius-button;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+  }
+}
+
+.btn-secondary {
+  @include button-reset;
+  height: $button-height-lg;
+  background: $color-bg-card;
+  color: $color-primary;
+  font-size: 34rpx;
+  font-weight: 600;
+  border-radius: $radius-button;
+  border: 2rpx solid $color-primary;
+  transition: all $transition-base;
+
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+    background: $color-bg-hover;
+  }
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6rpx 20rpx;
+  border-radius: $radius-sm;
+  font-size: 24rpx;
+  line-height: 1.4;
+
+  &.tag-success {
+    background: rgba($color-success, 0.1);
+    color: $color-success;
+  }
+
+  &.tag-warning {
+    background: rgba($color-warning, 0.1);
+    color: $color-warning;
+  }
+
+  &.tag-error {
+    background: rgba($color-error, 0.1);
+    color: $color-error;
+  }
+
+  &.tag-info {
+    background: rgba($color-info, 0.1);
+    color: $color-info;
+  }
+
+  &.tag-primary {
+    background: rgba($color-primary, 0.1);
+    color: $color-primary;
+  }
+}

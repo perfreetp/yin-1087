@@ -1,0 +1,52 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ringWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg {
+  transform: rotate(0deg);
+}
+
+.centerContent {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.percentage {
+  font-size: 72rpx;
+  font-weight: 700;
+  color: $color-text-primary;
+  line-height: 1.2;
+
+  &.pulse {
+    animation: pulse 2s ease-in-out infinite;
+  }
+}
+
+.statusText {
+  font-size: 28rpx;
+  font-weight: 500;
+  margin-top: $spacing-xs;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}

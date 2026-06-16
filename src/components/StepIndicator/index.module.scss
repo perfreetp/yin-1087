@@ -1,0 +1,112 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+}
+
+.stepWrapper {
+  display: flex;
+  align-items: stretch;
+  position: relative;
+
+  &:last-child {
+    .connector {
+      display: none;
+    }
+  }
+}
+
+.connector {
+  width: 4rpx;
+  margin-right: $spacing-lg;
+  display: flex;
+  justify-content: center;
+  min-height: 80rpx;
+}
+
+.line {
+  width: 4rpx;
+  height: 100%;
+  background: $color-border;
+  border-radius: 2rpx;
+
+  &.lineCompleted {
+    background: $color-primary;
+  }
+}
+
+.stepItem {
+  display: flex;
+  align-items: flex-start;
+  padding-bottom: $spacing-lg;
+  flex: 1;
+}
+
+.circle {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: $radius-round;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: $spacing-md;
+  flex-shrink: 0;
+
+  &.circleCompleted {
+    background: $color-primary;
+  }
+
+  &.circleActive {
+    background: $color-primary-light;
+    box-shadow: 0 0 0 8rpx rgba($color-primary, 0.15);
+  }
+
+  &.circlePending {
+    background: $color-bg-page;
+    border: 2rpx solid $color-border;
+  }
+}
+
+.checkMark {
+  color: $color-text-white;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.stepNumber {
+  color: $color-text-white;
+  font-size: 28rpx;
+  font-weight: 600;
+
+  .circlePending & {
+    color: $color-text-tertiary;
+  }
+}
+
+.stepContent {
+  flex: 1;
+  padding-top: $spacing-xs;
+}
+
+.stepTitle {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: $color-text-secondary;
+  display: block;
+  margin-bottom: 4rpx;
+
+  &.stepTitleActive {
+    color: $color-text-primary;
+  }
+}
+
+.stepDesc {
+  font-size: 26rpx;
+  color: $color-text-tertiary;
+  display: block;
+}

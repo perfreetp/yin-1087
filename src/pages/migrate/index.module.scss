@@ -1,0 +1,212 @@
+@use '@/styles/variables.scss' as *;
+
+.pageContainer {
+  min-height: 100vh;
+  padding: $spacing-lg;
+  padding-bottom: 200rpx;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, rgba($color-primary, 0.08) 0%, $color-bg-page 30%);
+}
+
+.hero {
+  text-align: center;
+  padding: $spacing-xl 0;
+  margin-bottom: $spacing-lg;
+}
+
+.heroIcon {
+  font-size: 120rpx;
+  display: block;
+  margin-bottom: $spacing-md;
+}
+
+.heroTitle {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: $spacing-sm;
+}
+
+.heroSubtitle {
+  font-size: 30rpx;
+  color: $color-text-secondary;
+  display: block;
+}
+
+.section {
+  margin-bottom: $spacing-xl;
+}
+
+.sectionTitle {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: $color-text-primary;
+  margin-bottom: $spacing-md;
+  display: block;
+}
+
+.connectionCard {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-xl;
+  box-shadow: $shadow-card;
+  text-align: center;
+  margin-bottom: $spacing-md;
+}
+
+.connectionStatus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: $spacing-md;
+}
+
+.statusDot {
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: $radius-round;
+  margin-right: $spacing-sm;
+
+  &.connected {
+    background: $color-success;
+    box-shadow: 0 0 0 8rpx rgba($color-success, 0.2);
+  }
+
+  &.disconnected {
+    background: $color-text-disabled;
+  }
+}
+
+.statusText {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: $color-text-primary;
+}
+
+.deviceNames {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: $spacing-lg;
+  gap: $spacing-md;
+}
+
+.deviceName {
+  font-size: 30rpx;
+  color: $color-text-secondary;
+  background: $color-bg-page;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-md;
+}
+
+.connectionArrow {
+  font-size: 36rpx;
+  color: $color-primary;
+}
+
+.storageCard {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-md;
+}
+
+.storageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.storageTitle {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: $color-text-primary;
+}
+
+.storageStatus {
+  @extend .tag;
+  &.ok {
+    @extend .tag-success;
+  }
+  &.warning {
+    @extend .tag-warning;
+  }
+  &.danger {
+    @extend .tag-error;
+  }
+}
+
+.storageBar {
+  height: 24rpx;
+  background: $color-bg-page;
+  border-radius: $radius-round;
+  overflow: hidden;
+  margin-bottom: $spacing-md;
+}
+
+.storageFill {
+  height: 100%;
+  border-radius: $radius-round;
+  transition: width 0.5s ease;
+
+  &.ok {
+    background: linear-gradient(90deg, $color-storage-ok, lighten($color-storage-ok, 10%));
+  }
+  &.warning {
+    background: linear-gradient(90deg, $color-storage-warning, lighten($color-storage-warning, 10%));
+  }
+  &.danger {
+    background: linear-gradient(90deg, $color-storage-danger, lighten($color-storage-danger, 10%));
+  }
+}
+
+.storageDetails {
+  display: flex;
+  justify-content: space-between;
+  font-size: 26rpx;
+  color: $color-text-secondary;
+}
+
+.tipsCard {
+  background: rgba($color-info, 0.08);
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  border-left: 6rpx solid $color-info;
+}
+
+.tipsTitle {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: $color-info;
+  display: block;
+  margin-bottom: $spacing-sm;
+}
+
+.tipsList {
+  margin: 0;
+  padding-left: $spacing-lg;
+}
+
+.tipsItem {
+  font-size: 28rpx;
+  color: $color-text-secondary;
+  line-height: 1.8;
+  display: list-item;
+}
+
+.bottomActions {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 120rpx;
+  padding: $spacing-lg;
+  padding-bottom: calc(env(safe-area-inset-bottom) + #{$spacing-lg});
+  background: linear-gradient(180deg, transparent, $color-bg-page 40%);
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}

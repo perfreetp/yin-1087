@@ -1,0 +1,102 @@
+@use '@/styles/variables.scss' as *;
+
+.card {
+  display: flex;
+  align-items: center;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+  border: 3rpx solid transparent;
+  transition: all $transition-base;
+
+  &:active {
+    transform: scale(0.99);
+  }
+
+  &.cardSelected {
+    border-color: $color-primary;
+    background: rgba($color-primary, 0.03);
+  }
+}
+
+.iconWrapper {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: $radius-md;
+  background: linear-gradient(135deg, rgba($color-primary, 0.1) 0%, rgba($color-primary-light, 0.1) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: $spacing-lg;
+  flex-shrink: 0;
+}
+
+.icon {
+  font-size: 48rpx;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8rpx;
+}
+
+.name {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: $color-text-primary;
+}
+
+.description {
+  font-size: 26rpx;
+  color: $color-text-tertiary;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+}
+
+.metaText {
+  font-size: 26rpx;
+  color: $color-text-secondary;
+}
+
+.metaDivider {
+  margin: 0 $spacing-sm;
+  color: $color-text-tertiary;
+}
+
+.checkbox {
+  width: 52rpx;
+  height: 52rpx;
+  border-radius: $radius-round;
+  border: 3rpx solid $color-border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: $spacing-md;
+  flex-shrink: 0;
+  background: $color-bg-card;
+
+  &.checkboxChecked {
+    background: $color-primary;
+    border-color: $color-primary;
+  }
+}
+
+.checkMark {
+  color: $color-text-white;
+  font-size: 28rpx;
+  font-weight: 700;
+}
