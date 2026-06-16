@@ -25,17 +25,43 @@ const ProgressPage: React.FC = () => {
     if (transferItems.length === 0) {
       return [];
     }
-    return [...transferItems].slice(0, 30);
+    const priorityOrder = { high: 0, normal: 1, low: 2 };
+    return [...transferItems]
+      .sort((a, b) => {
+        if (priorityOrder[a.priority] !== priorityOrder[b.priority]) {
+          return priorityOrder[a.priority] - priorityOrder[b.priority];
+        }
+        const statusOrder = { completed: 0, transferring: 1, pending: 2, failed: 3 };
+        if (statusOrder[a.status] !== statusOrder[b.status]) {
+          return statusOrder[a.status] - statusOrder[b.status];
+        }
+        return parseInt(a.id) - parseInt(b.id);
+      })
+      .slice(0, 30);
   }, [transferItems]);
+
+  const currentTransferringItem = useMemo(() => {
+    return transferItems.find(i => i.status === 'transferring')
+      || displayItems.find(i => i.status === 'pending');
+  }, [transferItems, displayItems]);
 
   useEffect(() => {
     if (!isTransferring || transferItems.length === 0) return;
 
     const interval = setInterval(() => {
-      const { transferProgress, transferItems, updateProgress } = useMigrateStore.getState();
+      const state = useMigrateStore.getState();
+      const { transferProgress, transferItems, updateProgress } = state;
 
-      const pendingItems = transferItems.filter(i => i.status === 'pending');
-      const transferringItems = transferItems.filter(i => i.status === 'transferring');
+      const priorityOrder = { high: 0, normal: 1, low: 2 };
+      const sortedItems = [...transferItems].sort((a, b) => {
+        if (priorityOrder[a.priority] !== priorityOrder[b.priority]) {
+          return priorityOrder[a.priority] - priorityOrder[b.priority];
+        }
+        return parseInt(a.id) - parseInt(b.id);
+      });
+
+      const pendingItems = sortedItems.filter(i => i.status === 'pending');
+      const transferringItems = sortedItems.filter(i => i.status === 'transferring');
 
       if (transferringItems.length === 0 && pendingItems.length > 0) {
         const nextItem = pendingItems[0];

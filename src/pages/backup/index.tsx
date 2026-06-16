@@ -43,7 +43,7 @@ const BackupPage: React.FC = () => {
   const [showRemoteModal, setShowRemoteModal] = useState(false);
   const [selectedMember, setSelectedMember] = useState<FamilyMember | null>(null);
   const [newMemberName, setNewMemberName] = useState('');
-  const [newMemberRelation, setNewMemberRelation] = useState('父亲');
+  const [newMemberRelationIndex, setNewMemberRelationIndex] = useState(0);
   const [remoteHelpCode, setRemoteHelpCode] = useState('');
 
   const formattedMyCode = useMemo(() => formatHelpCode(myHelpCode), [myHelpCode]);
@@ -68,7 +68,7 @@ const BackupPage: React.FC = () => {
 
   const handleAddMember = () => {
     setNewMemberName('');
-    setNewMemberRelation('父亲');
+    setNewMemberRelationIndex(0);
     setShowAddModal(true);
   };
 
@@ -77,11 +77,14 @@ const BackupPage: React.FC = () => {
       Taro.showToast({ title: '请输入姓名', icon: 'none' });
       return;
     }
-    addFamilyMember(newMemberName.trim(), newMemberRelation);
+    const relation = relationOptions[newMemberRelationIndex].value;
+    console.log('[BackupPage] 添加成员:', { name: newMemberName.trim(), relation, index: newMemberRelationIndex });
+    addFamilyMember(newMemberName.trim(), relation);
     setShowAddModal(false);
   };
 
   const handleViewRemoteProgress = () => {
+    clearRemoteProgress();
     setRemoteHelpCode('');
     setShowRemoteModal(true);
   };
@@ -92,9 +95,11 @@ const BackupPage: React.FC = () => {
       Taro.showToast({ title: '请输入8位协助码', icon: 'none' });
       return;
     }
+    console.log('[BackupPage] 尝试查看远程进度，协助码:', code);
     const success = viewRemoteProgress(code);
     if (success) {
       setShowRemoteModal(false);
+      Taro.showToast({ title: '加载成功', icon: 'success' });
     }
   };
 
@@ -156,44 +161,46 @@ const BackupPage: React.FC = () => {
         </View>
 
         {tp && (
-          <View className={styles.remoteStats}>
-            <View className={styles.remoteStatItem}>
-              <Text className={styles.remoteStatValue}>{tp.transferredSize}</Text>
-              <Text className={styles.remoteStatLabel}>已传输</Text>
+          <>
+            <View className={styles.remoteStats}>
+              <View className={styles.remoteStatItem}>
+                <Text className={styles.remoteStatValue}>{tp.transferredSize}</Text>
+                <Text className={styles.remoteStatLabel}>已传输</Text>
+              </View>
+              <View className={styles.remoteStatItem}>
+                <Text className={styles.remoteStatValue}>{tp.speed}</Text>
+                <Text className={styles.remoteStatLabel}>传输速度</Text>
+              </View>
+              <View className={styles.remoteStatItem}>
+                <Text className={styles.remoteStatValue}>{tp.estimatedTime}</Text>
+                <Text className={styles.remoteStatLabel}>剩余时间</Text>
+              </View>
             </View>
-            <View className={styles.remoteStatItem}>
-              <Text className={styles.remoteStatValue}>{tp.speed}</Text>
-              <Text className={styles.remoteStatLabel}>传输速度</Text>
-            </View>
-            <View className={styles.remoteStatItem}>
-              <Text className={styles.remoteStatValue}>{tp.estimatedTime}</Text>
-              <Text className={styles.remoteStatLabel}>剩余时间</Text>
-            </View>
-          </View>
-          <View className={styles.remoteCurrentItem}>
-            <Text className={styles.remoteCurrentLabel}>当前状态</Text>
-            <Text className={styles.remoteCurrentText}>
-              {tp.status === 'completed' ? '迁移完成' : tp.currentItem}
-            </Text>
-          </View>
-          <View className={styles.remoteProgressInfo}>
-            <Text className={styles.remoteProgressText}>
-              共 {tp.transferred}/{tp.total} 项
-            </Text>
-          </View>
-          {tp.missedItems.length > 0 && (
-            <View className={styles.remoteMissed}>
-              <Text className={styles.remoteMissedTitle}>
-                ⚠️ {tp.missedItems.length} 项未迁移
+            <View className={styles.remoteCurrentItem}>
+              <Text className={styles.remoteCurrentLabel}>当前状态</Text>
+              <Text className={styles.remoteCurrentText}>
+                {tp.status === 'completed' ? '迁移完成' : tp.currentItem}
               </Text>
-              {tp.missedItems.map((item, idx) => (
-                <View key={idx} className={styles.remoteMissedItem}>
-                  <Text>{item.name}</Text>
-                  <Text className={styles.remoteMissedReason}>{item.reason}</Text>
-                </View>
-              ))}
             </View>
-          )}
+            <View className={styles.remoteProgressInfo}>
+              <Text className={styles.remoteProgressText}>
+                共 {tp.transferred}/{tp.total} 项
+              </Text>
+            </View>
+            {tp.missedItems.length > 0 && (
+              <View className={styles.remoteMissed}>
+                <Text className={styles.remoteMissedTitle}>
+                  ⚠️ {tp.missedItems.length} 项未迁移
+                </Text>
+                {tp.missedItems.map((item, idx) => (
+                  <View key={idx} className={styles.remoteMissedItem}>
+                    <Text>{item.name}</Text>
+                    <Text className={styles.remoteMissedReason}>{item.reason}</Text>
+                  </View>
+                ))}
+              </View>
+            )}
+          </>
         )}
 
         <Button
@@ -317,15 +324,17 @@ const BackupPage: React.FC = () => {
               <Picker
                 mode="selector"
                 range={relationOptions.map(r => r.label)}
-                rangeKey="label"
-                value={relationOptions.findIndex(r => r.value === newMemberRelation)}
+                value={newMemberRelationIndex}
                 onSelect={(e) => {
-                  const idx = e.detail.value;
-                  setNewMemberRelation(relationOptions[idx].value);
+                  const idx = Number(e.detail.value);
+                  console.log('[BackupPage] 选择关系索引:', idx, '值:', relationOptions[idx]?.value);
+                  setNewMemberRelationIndex(idx);
                 }}
               >
                 <View className={styles.pickerView}>
-                  <Text className={styles.pickerText}>{newMemberRelation}</Text>
+                  <Text className={styles.pickerText}>
+                    {relationOptions[newMemberRelationIndex]?.label || '请选择'}
+                  </Text>
                   <Text className={styles.pickerArrow}>▼</Text>
                 </View>
               </Picker>

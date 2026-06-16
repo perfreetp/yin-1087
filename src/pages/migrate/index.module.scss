@@ -1,4 +1,5 @@
 @use '@/styles/variables.scss' as *;
+@use 'sass:color';
 
 .pageContainer {
   min-height: 100vh;
@@ -127,15 +128,24 @@
 }
 
 .storageStatus {
-  @extend .tag;
+  display: inline-flex;
+  align-items: center;
+  padding: 6rpx 20rpx;
+  border-radius: 12rpx;
+  font-size: 24rpx;
+  line-height: 1.4;
+
   &.ok {
-    @extend .tag-success;
+    background: rgba($color-success, 0.1);
+    color: $color-success;
   }
   &.warning {
-    @extend .tag-warning;
+    background: rgba($color-warning, 0.1);
+    color: $color-warning;
   }
   &.danger {
-    @extend .tag-error;
+    background: rgba($color-error, 0.1);
+    color: $color-error;
   }
 }
 
@@ -153,13 +163,13 @@
   transition: width 0.5s ease;
 
   &.ok {
-    background: linear-gradient(90deg, $color-storage-ok, lighten($color-storage-ok, 10%));
+    background: linear-gradient(90deg, $color-storage-ok, color.adjust($color-storage-ok, $lightness: 10%));
   }
   &.warning {
-    background: linear-gradient(90deg, $color-storage-warning, lighten($color-storage-warning, 10%));
+    background: linear-gradient(90deg, $color-storage-warning, color.adjust($color-storage-warning, $lightness: 10%));
   }
   &.danger {
-    background: linear-gradient(90deg, $color-storage-danger, lighten($color-storage-danger, 10%));
+    background: linear-gradient(90deg, $color-storage-danger, color.adjust($color-storage-danger, $lightness: 10%));
   }
 }
 
