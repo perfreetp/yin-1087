@@ -277,3 +277,31 @@
   color: $color-text-secondary;
   display: block;
 }
+
+.emptyState {
+  text-align: center;
+  padding: $spacing-2xl $spacing-lg;
+  margin-top: $spacing-2xl;
+}
+
+.emptyIcon {
+  font-size: 120rpx;
+  display: block;
+  margin-bottom: $spacing-lg;
+}
+
+.emptyTitle {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: $spacing-md;
+}
+
+.emptyDesc {
+  font-size: 28rpx;
+  color: $color-text-tertiary;
+  display: block;
+  line-height: 1.8;
+  white-space: pre-line;
+}

@@ -21,10 +21,13 @@ export interface MigrateStep {
 export interface TransferItem {
   id: string;
   category: string;
+  categoryId: string;
   name: string;
   size: string;
+  sizeBytes: number;
   status: 'pending' | 'transferring' | 'completed' | 'failed';
   progress: number;
+  priority: 'high' | 'normal' | 'low';
 }
 
 export interface FamilyMember {
@@ -36,6 +39,8 @@ export interface FamilyMember {
   backupCount: number;
   helpCode: string;
   online: boolean;
+  backupRecords: BackupRecord[];
+  transferProgress?: TransferProgress;
 }
 
 export interface BackupRecord {
@@ -82,4 +87,13 @@ export interface MissedItem {
   name: string;
   category: string;
   reason: string;
+}
+
+export interface RemoteProgressView {
+  helpCode: string;
+  memberName: string;
+  memberRelation: string;
+  currentStep: number;
+  transferProgress: TransferProgress | null;
+  lastUpdated: string;
 }

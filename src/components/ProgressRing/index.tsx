@@ -3,11 +3,13 @@ import { View, Text } from '@tarojs/components';
 import classnames from 'classnames';
 import styles from './index.module.scss';
 
+type TransferStatus = 'idle' | 'transferring' | 'paused' | 'completed' | 'failed' | 'connecting' | 'reconnecting';
+
 interface ProgressRingProps {
   percentage: number;
   size?: number;
   strokeWidth?: number;
-  status?: 'idle' | 'transferring' | 'paused' | 'completed' | 'failed';
+  status?: TransferStatus;
   showLabel?: boolean;
 }
 

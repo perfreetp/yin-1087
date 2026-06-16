@@ -99,40 +99,23 @@ export const mockDataCategories: DataCategory[] = [
   }
 ];
 
-export const mockStorageInfo: StorageInfo = {
-  total: '256 GB',
-  used: '86 GB',
-  available: '170 GB',
-  availableBytes: 182536110080,
-  requiredBytes: 24567892992,
-  sufficient: true
-};
-
-export const mockTransferItems: TransferItem[] = [
-  { id: '1', category: '通讯录', name: '爸爸的电话号码', size: '2 KB', status: 'completed', progress: 100 },
-  { id: '2', category: '通讯录', name: '妈妈的电话号码', size: '2 KB', status: 'completed', progress: 100 },
-  { id: '3', category: '短信', name: '银行提醒消息', size: '15 KB', status: 'completed', progress: 100 },
-  { id: '4', category: '照片', name: '2024春节全家福.jpg', size: '4.2 MB', status: 'transferring', progress: 65 },
-  { id: '5', category: '照片', name: '孙子生日派对.jpg', size: '3.8 MB', status: 'pending', progress: 0 },
-  { id: '6', category: '照片', name: '旅行风景照.jpg', size: '5.1 MB', status: 'pending', progress: 0 },
-  { id: '7', category: '视频', name: '家庭聚餐.mp4', size: '128 MB', status: 'pending', progress: 0 },
-  { id: '8', category: '视频', name: '孙子学走路.mp4', size: '256 MB', status: 'pending', progress: 0 }
+export const mockBackupRecords: BackupRecord[] = [
+  { id: '1', date: '2024-06-15 14:30', size: '24.6 GB', categories: ['通讯录', '照片', '视频'], device: '华为 Mate 60' },
+  { id: '2', date: '2024-06-08 09:15', size: '22.8 GB', categories: ['通讯录', '照片'], device: '华为 Mate 60' },
+  { id: '3', date: '2024-06-01 18:45', size: '21.5 GB', categories: ['通讯录', '照片', '短信'], device: '华为 Mate 60' }
 ];
 
 export const mockTransferProgress: TransferProgress = {
-  overall: 35,
-  speed: '8.6 MB/s',
-  estimatedTime: '约 12 分钟',
-  transferred: 456,
-  total: 5683,
-  transferredSize: '14.2 GB',
-  totalSize: '24.6 GB',
-  status: 'transferring',
-  currentItem: '2024春节全家福.jpg',
-  missedItems: [
-    { name: '损坏的旧照片.jpg', category: '照片', reason: '文件已损坏' },
-    { name: '加密聊天记录.db', category: '微信文件', reason: '文件受保护' }
-  ]
+  overall: 0,
+  speed: '0 MB/s',
+  estimatedTime: '计算中...',
+  transferred: 0,
+  total: 0,
+  transferredSize: '0 GB',
+  totalSize: '0 GB',
+  status: 'idle',
+  currentItem: '等待开始...',
+  missedItems: []
 };
 
 export const mockFamilyMembers: FamilyMember[] = [
@@ -143,8 +126,21 @@ export const mockFamilyMembers: FamilyMember[] = [
     avatar: 'https://picsum.photos/id/64/200/200',
     lastBackup: '今天 14:30',
     backupCount: 12,
-    helpCode: '8823 5671',
-    online: true
+    helpCode: '88235671',
+    online: true,
+    backupRecords: mockBackupRecords,
+    transferProgress: {
+      overall: 35,
+      speed: '8.6 MB/s',
+      estimatedTime: '约 12 分钟',
+      transferred: 456,
+      total: 5683,
+      transferredSize: '14.2 GB',
+      totalSize: '24.6 GB',
+      status: 'transferring',
+      currentItem: '2024春节全家福.jpg',
+      missedItems: []
+    }
   },
   {
     id: '2',
@@ -153,8 +149,11 @@ export const mockFamilyMembers: FamilyMember[] = [
     avatar: 'https://picsum.photos/id/91/200/200',
     lastBackup: '昨天 20:15',
     backupCount: 8,
-    helpCode: '3341 9285',
-    online: false
+    helpCode: '33419285',
+    online: false,
+    backupRecords: [
+      { id: 'm1', date: '2024-06-14 20:15', size: '18.2 GB', categories: ['通讯录', '照片'], device: 'iPhone 13' }
+    ]
   },
   {
     id: '3',
@@ -163,16 +162,36 @@ export const mockFamilyMembers: FamilyMember[] = [
     avatar: 'https://picsum.photos/id/177/200/200',
     lastBackup: '3天前',
     backupCount: 5,
-    helpCode: '6617 4428',
-    online: true
+    helpCode: '66174428',
+    online: true,
+    backupRecords: [
+      { id: 'g1', date: '2024-06-12 10:00', size: '12.5 GB', categories: ['通讯录', '照片', '短信'], device: '荣耀 60' }
+    ],
+    transferProgress: {
+      overall: 100,
+      speed: '0 MB/s',
+      estimatedTime: '已完成',
+      transferred: 2341,
+      total: 2341,
+      transferredSize: '12.5 GB',
+      totalSize: '12.5 GB',
+      status: 'completed',
+      currentItem: '迁移完成',
+      missedItems: [
+        { name: '损坏的旧照片.jpg', category: '照片', reason: '文件已损坏' }
+      ]
+    }
   }
 ];
 
-export const mockBackupRecords: BackupRecord[] = [
-  { id: '1', date: '2024-06-15 14:30', size: '24.6 GB', categories: ['通讯录', '照片', '视频'], device: '华为 Mate 60' },
-  { id: '2', date: '2024-06-08 09:15', size: '22.8 GB', categories: ['通讯录', '照片'], device: '华为 Mate 60' },
-  { id: '3', date: '2024-06-01 18:45', size: '21.5 GB', categories: ['通讯录', '照片', '短信'], device: '华为 Mate 60' }
-];
+export const mockStorageInfo: StorageInfo = {
+  total: '256 GB',
+  used: '86 GB',
+  available: '170 GB',
+  availableBytes: 182536110080,
+  requiredBytes: 0,
+  sufficient: true
+};
 
 export const mockRecoveryItems: RecoveryItem[] = [
   {
@@ -219,3 +238,25 @@ export const mockRecoveryItems: RecoveryItem[] = [
     size: '2.1 MB'
   }
 ];
+
+export const generateHelpCode = (): string => {
+  return Math.floor(10000000 + Math.random() * 90000000).toString();
+};
+
+export const formatBytes = (bytes: number): string => {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  if (bytes < 1024 * 1024 * 1024) return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  return (bytes / (1024 * 1024 * 1024)).toFixed(1) + ' GB';
+};
+
+export const formatDate = (date: Date): string => {
+  const pad = (n: number) => n.toString().padStart(2, '0');
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+};
+
+export const getAvatarById = (id: number): string => {
+  const avatarIds = [64, 91, 177, 338, 1027, 237, 659, 718];
+  const idx = id % avatarIds.length;
+  return `https://picsum.photos/id/${avatarIds[idx]}/200/200`;
+};
